@@ -14,18 +14,15 @@ const GifDetails = () => {
     const [loading, isLoading] = useState(true);
 
     useEffect(() => {
-      const getData = () => {  
-        return fetch(`${APIURL}/gifs/${gifId[4]}?api_key=${APIKEY}`)
-          .then(res => res.json())
-          .then(response => {
+      async function getData () {  
+        let response = await fetch(`${APIURL}/gifs/${gifId[4]}?api_key=${APIKEY}`)
+            response = await response.json()
             if(isMounted){
+              console.log(isMounted);
               setResults(response.data);
+              console.log(response.data);
               isLoading(false);
             }
-          })
-          .catch((error)=>{
-            alert("Something went wrong", error);
-          })
       }
       
       getData();
@@ -35,7 +32,7 @@ const GifDetails = () => {
       return (
         <div className="flex w-full flex-col mb-8 px-8">
         <h2  className='font-mono text-white text-2xl sm:text-5xl text-center my-10 tracking-wider'>{result.title}</h2>
-        <div className="max-w-screen-lg self-center rounded flex w-full flex-col sm:flex-row justify-center">
+        <div className="max-w-screen-lg self-center gap-6 rounded flex w-full flex-col sm:flex-row justify-center">
           <div className="h-full">
             <Gif
               id ={result.id} 
@@ -44,9 +41,9 @@ const GifDetails = () => {
               url = {result.images.fixed_height.url} 
               />
             </div>
-            <div className='text-center p-10 bg-purple-500/[.8] rounded w-full sm:w-96'>
-              <h3 className='font-mono text-white text-m sm:text-xl text-center tracking-wider'><strong>Name: </strong><br></br>{result.user.display_name}</h3>
-              <p className='font-mono text-white text-m sm:text-xl my-8 tracking-wider'><strong>Description: </strong><br></br>{result.user.description}</p>
+            <div className='text-center p-6 bg-purple-500/[.8] rounded w-full sm:w-1/2'>
+              <h3 className='font-mono text-white text-m sm:text-l text-center tracking-wider break-words'><strong>Name: </strong><br></br>{result.user.display_name}</h3>
+              <p className='font-mono text-white text-m sm:text-l my-8 tracking-wider break-words'><strong>Description: </strong><br></br>{result.user.description}</p>
             </div>
         </div>
         <Link to={`/`} className='w-full flex justify-center'>
