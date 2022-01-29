@@ -2,7 +2,7 @@
 
 Aplicación web cliente que consume la GIPHY API
 
-## Available Scripts
+## Comandos disponibles
 
 En el directorio del proyecto, puede ejecutar:
 
